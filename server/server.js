@@ -27,6 +27,11 @@ io.on('connection', (socket) => {
     socket.join(params.room);
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, params.room);
+    const test = socket.handshake.address
+    
+      var clientIp = socket.request.connection.remoteAddress;
+
+      console.log(clientIp);
 
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
